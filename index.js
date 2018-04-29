@@ -24,8 +24,11 @@ maxVote = 10;
 var primeMinister = vote('Prime Minster' , primeMinisterSubject , maxVote);
 votingArray.push(primeMinister);
 
+var smokers = { good : 0 , bad : 0};
+var smokersVote = vote('Smokers Vote' , smokers , 10);
+votingArray.push(smokersVote);
 // Go To Pub run
-goToPub.on('countChanged' , goToPub.displayCurrentCount)
+
 goToPub.addVote('yes');
 goToPub.addVote('no');
 goToPub.addVote('no');
@@ -39,7 +42,7 @@ goToPub.addVote('no');
 
 
 // Prime minister run
-primeMinister.on('countChanged' , primeMinister.displayCurrentCount);
+
 primeMinister.addVote('Bibi');
 primeMinister.addVote('Lapid');
 primeMinister.addVote('Buji');
@@ -51,6 +54,10 @@ primeMinister.addVote('Lapid');
 primeMinister.addVote('Buji');
 primeMinister.addVote('Bibi');
 primeMinister.addVote('Bibi');
+
+smokersVote.addVote('good');
+smokersVote.addVote('good');
+smokersVote.addVote('bad');
 
 
 /*app.get('/' , function(req , res){
@@ -58,9 +65,9 @@ primeMinister.addVote('Bibi');
     res.send(msg);
 });
 http.createServer(app).listen(3000);
-console.log('Listening on port 3000')*/
+console.log('Listening on port 3000')
 
-
+*/
 getAllData(votingArray);
 console.log('*****Zeroing the Vote*****');
 goToPub.zeroVote();

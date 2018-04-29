@@ -1,5 +1,5 @@
-var events = require('events');
-
+var events = require('events') ,
+    eventConfig = require('./config');
 class VotingObj extends events.EventEmitter{
 
     // Class constructor , get voiting subject
@@ -15,6 +15,7 @@ class VotingObj extends events.EventEmitter{
                 console.log(key + ": " +  this.subjects[key]);
             } 
         } 
+        
         console.log(`New vote was created : ${voteSubject}`);
         this.printeVoteCount();
 
@@ -30,7 +31,7 @@ class VotingObj extends events.EventEmitter{
             if(this.voteCounter <= this.maxVote - 1){
                 this.subjects[key]++;
                 this.voteCounter += 1;
-                this.emit('countChanged');
+                this.emit(eventConfig.ADDCOUNT);
             }else{
                 console.log('MAX VOTE SIZE')
             } 
@@ -42,7 +43,7 @@ class VotingObj extends events.EventEmitter{
             for(var key in  this.subjects){
                 this.subjects[key] = 0;
             }
-            this.emit('countChanged');
+            this.emit(eventConfig.ADDCOUNT);
         }
 
         // -- The Collback functions --
@@ -61,5 +62,6 @@ class VotingObj extends events.EventEmitter{
 // Export the module
 module.exports = (voteSubject , subjectArray , maxVote) =>{
     var voteInstace = new VotingObj(voteSubject , subjectArray , maxVote);
+   voteInstace.on(eventConfig.ADDCOUNT , voteInstace.displayCurrentCount)
     return voteInstace;
 }
